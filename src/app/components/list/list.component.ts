@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from 'src/app/models/ListModel';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-list',
@@ -9,11 +10,10 @@ import { Task } from 'src/app/models/ListModel';
 export class ListComponent implements OnInit {
     public list:Task[]=[];
   
-    constructor() { 
-      let data=localStorage.getItem("list");
-      if (data!=null){
-        this.list=JSON.parse(data);
-      }
+    constructor(private taskService:TaskService) { 
+      taskService.load();
+      this.list=taskService.list
+      
     }
 
   ngOnInit(): void {
